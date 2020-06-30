@@ -9,16 +9,16 @@ public class Account{
         return balance;
     }
 
-    public void deposit(double amount){
-        balance += amount;
+    public void deposit(double value){
+        balance += value;
         System.out.println(balance);
     }
 
-    public void withdraw(double amount){
-        if (balance < amount){
-	        throw new NotEnoughMoneyException(amount, balance);
+    public void withdraw(double value){
+        if (balance < value){
+	        throw new NotEnoughMoneyException(value, balance);
 	    }
-        balance -= amount;
+        balance -= value;
         System.out.println(balance);
     }
 
