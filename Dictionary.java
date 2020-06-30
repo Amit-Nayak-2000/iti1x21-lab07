@@ -21,7 +21,9 @@ public class Dictionary implements Map<String, Integer> {
 
     @Override
     public void put(String key, Integer value) {
-
+        if (key == null || value == null) {
+            throw new NullPointerException("key or value is null");
+        }
         if (count == elems.length) {
             increaseCapacity();
         }
@@ -44,13 +46,17 @@ public class Dictionary implements Map<String, Integer> {
     @Override
     public boolean contains(String key) {
 
+        if (key == null) {
+            throw new NullPointerException("key is null");
+        }
+
         boolean found = false;
         int pos = count - 1;
 
         // Searching the dictionary from top to bottom,
         // similarly to the implementaiton of a stack.
         while (pos >= 0 && !found) {
-            if (elems[pos].key.equals(key)) {
+            if (elems[pos].getKey().equals(key)) {
                 found = true;
             } else {
                 pos--;
@@ -63,58 +69,82 @@ public class Dictionary implements Map<String, Integer> {
     @Override
     public Integer get(String key) {
 
+        if (key == null) {
+            throw new NullPointerException("key is null");
+        }
+
         boolean found = false;
         int pos = count - 1;
 
         // Searching the dictionary from top to bottom,
         // similarly to the implementaiton of a stack.
         while (pos >= 0 && !found) {
-            if (elems[pos].key.equals(key)) {
+            if (elems[pos].getKey().equals(key)) {
                 found = true;
             } else {
                 pos--;
             }
         }
 
-        return elems[pos].value;
+        if (found == false) {
+            throw new NoSuchElementException("key not found: " + key);
+        }
+
+        return elems[pos].getValue();
     }
 
     @Override
     public void replace(String key, Integer value) {
 
+        if (key == null || value == null) {
+            throw new NullPointerException("key or value is null");
+        }
+
         boolean found = false;
         int pos = count - 1;
 
         // Searching the dictionary from top to bottom,
         // similarly to the implementaiton of a stack.
         while (pos >= 0 && !found) {
-            if (elems[pos].key.equals(key)) {
+            if (elems[pos].getKey().equals(key)) {
                 found = true;
             } else {
                 pos--;
             }
         }
 
-        elems[pos].value = value;
+        if (!found) {
+            throw new NoSuchElementException("key not found: " + key);
+        }
+
+        elems[pos].setValue(value);
     }
 
     @Override
     public Integer remove(String key) {
 
+        if (key == null) {
+            throw new NullPointerException("key is null");
+        }
+
         boolean found = false;
         int pos = count - 1;
 
         // Searching the dictionary from top to bottom,
         // similarly to the implementaiton of a stack.
         while (pos >= 0 && !found) {
-            if (elems[pos].key.equals(key)) {
+            if (elems[pos].getKey().equals(key)) {
                 found = true;
             } else {
                 pos--;
             }
         }
 
-        Integer saved = elems[pos].value;
+        if (!found) {
+            throw new NoSuchElementException("key not found: " + key);
+        }
+
+        Integer saved = elems[pos].getValue();
 
         while (pos < count - 1) {
             elems[pos] = elems[pos + 1];

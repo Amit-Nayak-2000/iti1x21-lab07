@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 /**
  * ITI 1121. Introduction à l'informatique II (Hiver 2008).
  * ITI 1521. Introduction to Computer Science II (Winter 2008).
@@ -42,6 +43,9 @@ public class ArrayStack<E> implements Stack<E> {
     public E peek() {
 
         // pre-conditions: ! isEmpty()
+        if(isEmpty()){
+            throw new EmptyStackException();
+        }
 
         return elems[ top-1 ];
     }
@@ -51,6 +55,9 @@ public class ArrayStack<E> implements Stack<E> {
     public E pop() {
 
         // pre-conditions: ! isEmpty()
+        if(isEmpty()){
+            throw new EmptyStackException();
+        }
         
         // *first* decrements top, then access the value!
         E saved = elems[ --top ];
@@ -65,6 +72,9 @@ public class ArrayStack<E> implements Stack<E> {
     public void push( E element ) {
 
         // Pre-condition: the stack is not full
+        if(elems.length == capacity){
+            throw new FullStackException();
+        }
 
         // *first* stores the element at position top, then increments top
 

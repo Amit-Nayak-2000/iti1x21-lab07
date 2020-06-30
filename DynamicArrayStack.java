@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 /**
  * ITI 1121. Introduction à l'informatique II
  * ITI 1521. Introduction to Computer Science II
@@ -45,7 +46,9 @@ public class DynamicArrayStack<E> implements Stack<E> {
     // Returns the top element of this ArrayStack without removing it
 
     public E peek() {
-
+        if(isEmpty()){
+            throw new EmptyStackException();
+        }
         // pre-conditions: ! isEmpty()
 
         return elems[ top-1 ];
@@ -57,6 +60,9 @@ public class DynamicArrayStack<E> implements Stack<E> {
 
     public E pop() {
         // pre-conditions: ! isEmpty()
+        if(isEmpty()){
+            throw new EmptyStackException();
+        }
         
         // *first* decrements top, then access the value!
         E saved = elems[ --top ];
